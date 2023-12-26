@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from '@mui/material';
 import { WidgetWrapper } from '../../Components/WidgetWrapper';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFriends } from '../../state';
 import { Friend } from '../../Components/Friend';
@@ -76,7 +76,6 @@ export const MyFriendWidget = ({ userId }) => {
                         userPicturePath={friend.picturePath}
                     />
                 ))
-                
                 }
             </Box>
             )

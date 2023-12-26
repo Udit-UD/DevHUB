@@ -54,19 +54,17 @@ export const PostWidget = ({
 
     const handleComment = async() => {
         try{
-            const formData = new FormData();
-            formData.append("userId", loggedInUserId);
-            formData.append("text", comment);
             const response = await fetch(`http://localhost:3000/posts/${postId}/comment`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
                 },
-                body: formData,
+                body: JSON.stringify({userId: loggedInUserId, text: comment}),
             });
             const data = await response.json();
             console.log(data);
-            dispatch(setComments({comment: data}));
+            dispatch(setComments({post:data}));
             setComment("");    
         }
         catch(err){
@@ -144,3 +142,7 @@ export const PostWidget = ({
     </WidgetWrapper>
   )
 }
+
+// mono repo Architecture using learna
+// axios interceptor 
+// axios instance

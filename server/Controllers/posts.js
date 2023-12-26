@@ -93,6 +93,7 @@ export const commentPost = async (req, res)=>{
         const { userId } = req.body;
         const { text } = req.body;
         
+        console.log(req.body.userId);
         const post = await Post.findById(id);
         if(!post) return res.status(404).json({error: "Post not found!"});
         
