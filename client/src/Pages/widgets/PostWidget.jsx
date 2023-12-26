@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Friend } from '../../Components/Friend';
 import ProfileImage from '../../Components/ProfileImage';
 import { Comment } from "../../Components/Comment";
-import { setComments } from '../../state';
+import { setComments, setPost } from '../../state';
 
 export const PostWidget = ({
     postId, 
@@ -142,7 +142,3 @@ export const PostWidget = ({
     </WidgetWrapper>
   )
 }
-
-// mono repo Architecture using learna
-// axios interceptor 
-// axios instance

@@ -1,6 +1,6 @@
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, CircularProgress, Typography, useTheme } from '@mui/material';
 import { WidgetWrapper } from '../../Components/WidgetWrapper';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFriends } from '../../state';
 import { Friend } from '../../Components/Friend';
@@ -15,14 +15,17 @@ export const MyFriendWidget = ({ userId }) => {
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
 
+  const [loading, setLoading] = useState(false);
+
   const getUserFriends = async()=>{
     try{
+        setLoading(true);
         const response = await fetch(`http://localhost:3000/users/${userId}/friends`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`,
             }
-      });
+        });
 
         if(!response.ok){
             throw new Error(`Failed to fetch friends: ${response.status}`);
@@ -31,8 +34,10 @@ export const MyFriendWidget = ({ userId }) => {
         const updatedFriends = Array.isArray(data) ? data : [];
 
         dispatch(setFriends({ friends: updatedFriends }));
+        setLoading(false);
     }
     catch(err){
+        setLoading(false);
         console.log( err);
     }
   }
@@ -53,6 +58,11 @@ export const MyFriendWidget = ({ userId }) => {
             </Typography>
         </Box>
         {
+            loading ? 
+            <Box display="flex" justifyContent="center" mb="2rem">
+                <CircularProgress /> 
+            </Box>
+            :
             friends.length === 0 ? 
             (
                 <Typography 
