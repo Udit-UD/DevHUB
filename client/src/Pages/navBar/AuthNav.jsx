@@ -12,10 +12,10 @@ export const AuthNav = () => {
   const alt = theme.palette.background.alt;
   return (
     
-    <FlexBetween padding="1rem 5%" backgroundColor={alt}>
+    <FlexBetween padding="1rem 5%" justifyContent="center" backgroundColor={alt}>
       
       <FlexBetween gap="1.75rem">
-      <FlexBetween flexDirection="column">
+      <FlexBetween gap={"0.1rem"}>
           <Typography 
             fontWeight="bold" 
             fontSize="clamp(1rem, 2rem, 1.25rem)"
@@ -30,7 +30,9 @@ export const AuthNav = () => {
           >
             Dev
           </Typography>
-          <Typography color="yellow">HUB</Typography> 
+          <Typography fontWeight="bold" 
+            fontSize="clamp(1rem, 1.75rem, 1.0rem)"
+            color={theme.palette.mode === "dark" ? "black" : "white"} bgcolor="orange" p="1px 3px" borderRadius="4px" >HUB</Typography> 
         </FlexBetween>
 
       </FlexBetween>

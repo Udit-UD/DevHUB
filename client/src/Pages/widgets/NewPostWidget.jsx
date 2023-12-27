@@ -51,11 +51,18 @@ export const NewPostWidget = ({picturePath}) => {
                 method: "POST",
                 headers: {Authorization: `Bearer ${token}`},
                 body: formData
-            })
-            const posts = await response.json();
-            dispatch(setPosts({posts}));
-            setImage(null);
-            setPost("");
+            });
+            if(response.ok){
+                const posts = await response.json();
+                dispatch(setPosts({posts}));
+                alert("Post successful!!")
+                setImage(null);
+                setPost("");
+            }
+            else{
+                alert("Code Phatt Gaya!!!");
+            }
+
         }
         catch(error){
             alert(`Opps, something went wrong!!`, error);

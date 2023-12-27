@@ -23,7 +23,6 @@ export const PostsWidget = ({userId, userPicture ,isProfile = false}) => {
     setLoading(false);
   }
 
-
   const getUserPosts = async() => {
     setLoading(true);
     const response = await fetch(`http://localhost:3000/posts/${userId}/posts`,{

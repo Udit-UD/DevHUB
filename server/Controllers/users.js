@@ -11,6 +11,22 @@ export const getUser = async(req, res) => {
     }
 }
 
+export const searchFriends = async(req, res) => {
+  try {
+    if (req.query.search){
+      const users = await User.find();
+      const searchStr = req.query.search.toLowerCase();
+      const filterFriends = users.filter((friend) => friend.firstName.toLowerCase().includes(searchStr));
+      return res.status(201).json(filterFriends);
+    }
+    res.status(200).json([]);
+
+  } catch (error) {
+    console.log("Code Phatt Gaya");
+    res.status(500).json({message: "Internal Sever Error!"});
+  }
+}
+
 export const getFriends = async (req, res) => {
     try {
       const { id } = req.params;
@@ -27,7 +43,7 @@ export const getFriends = async (req, res) => {
       if (friends.length === 0) {
         return res.status(200).json({ message: "You have 0 Friends!" });
       }
-  
+
       const formattedFriends = friends.map(
         ({ _id, firstName, lastName, occupation, location, picturePath }) => {
           return { _id, firstName, lastName, occupation, location, picturePath };

@@ -24,13 +24,13 @@ export const PostWidget = ({
     picturePath,
     userPicturePath,
     likes,
-    userPicture,
     comments
 }) => {
     const [isComments, setIsComments] = useState(false);
     const dispatch = useDispatch();
     const token = useSelector((state)=> state.token);
     const loggedInUserId = useSelector((state) => state.user._id);
+    const userPicture = useSelector((state)=>state.user.picturePath);
     const isLiked = Boolean(likes[loggedInUserId]);
     const likeCount = Object.keys(likes).length;
     const [comment, setComment] = useState("");
@@ -131,7 +131,7 @@ export const PostWidget = ({
                 </FlexBetween>
                 
             </FlexBetween>
-                {comments.map((comment, i) => (
+                {comments.map((comment) => (
                     <Box key={comment._id} mb="1rem">
                     <Comment postId={postId} userId={comment.userId} userName={comment.userName} occupation={comment.occupation} picturePath={comment.picturePath} text={comment.text}/>
                     </Box>
