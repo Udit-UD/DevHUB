@@ -1,30 +1,20 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {
-    PersonAddOutlined, 
-    PersonRemoveOutlined,
-} from "@mui/icons-material";
-import {Box, Typography, useTheme, IconButton} from "@mui/material";
+import {Box, Typography, useTheme} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { setFriends } from "../state";
+import { setFriends, setSelectedFriend } from "../state";
 import FlexBetween from "./FlexBetween";
 import ProfileImage from "./ProfileImage";
 
-export const Friend = ({friendId, name, subtitle, userPicturePath, showIcons}) => {
+export const ChatFriend = ({friendId, name, subtitle, userPicturePath}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {_id} = useSelector((state) => state.user);
     const token = useSelector((state) => state.token);
-    const friends = useSelector((state)=> state.user.friends);
 
     const {palette} = useTheme();
-    const primaryLight = palette.primary.light;
-    const primaryDark = palette.primary.dark;
     const main = palette.neutral.main;
     const medium = palette.neutral.medium;
-    
-    const userItself = friendId === _id;
-    const isFriend = friends.find((friend) => friend._id === friendId);
 
     const patchFriend = async() => {
         try{
@@ -53,8 +43,7 @@ export const Friend = ({friendId, name, subtitle, userPicturePath, showIcons}) =
                 <ProfileImage image={userPicturePath} size="55px" />
                 <Box
                     onClick = {()=> {
-                        navigate(`/profile/${friendId}`);
-                        navigate(0);
+                        dispatch(setSelectedFriend({friendId}));
                     }}
                 >
                     <Typography
@@ -73,22 +62,7 @@ export const Friend = ({friendId, name, subtitle, userPicturePath, showIcons}) =
                     </Typography>
                 </Box>
             </FlexBetween>
-            {
-            (!userItself && showIcons) && (
-                <IconButton
-                    onClick={() => patchFriend()}
-                    sx={{backgroundColor: primaryLight, p: "0.6rem"}}
-                >
-                    {
-                        isFriend ? (
-                        <PersonRemoveOutlined sx={{ color: primaryDark }} />
-                        ) : (
-                        <PersonAddOutlined sx={{ color: primaryDark }} />
-                        )
-                    }
-                </IconButton>
-            )
-            }
+            
         </FlexBetween>
     )
 

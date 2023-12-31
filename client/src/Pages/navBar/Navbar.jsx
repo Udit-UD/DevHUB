@@ -18,7 +18,7 @@ import {
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux'; 
 import { setMode, setLogout } from '../../state';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import FlexBetween from '../../Components/FlexBetween';
 import { Friend } from '../../Components/Friend';
 
@@ -39,7 +39,8 @@ export const Navbar = () => {
   const alt = theme.palette.background.alt;
 
   useEffect(() => {
-    ;(async() => {
+    if (searchStr.trim() !== '' && toggle){
+      ;(async() => {
         try {
           setIsLoading(true);
           const response = await fetch(`http://localhost:3000/users/searchuser?search=${searchStr}`, {
@@ -55,6 +56,7 @@ export const Navbar = () => {
           console.log(err.message);
         }     
     })();
+    }
   }, [searchStr]);
 
   useEffect(() => {
@@ -163,7 +165,9 @@ export const Navbar = () => {
                 <LightMode sx={{color: dark, fontSize: "25px"}} />
               )}
             </IconButton>
+            <IconButton onClick={()=>navigate("/messages")}>
             <Message sx={{fontSize: "25px", cursor: "pointer"}} />
+            </IconButton>
             <Notifications sx={{fontSize: "25px", cursor: "pointer"}} />
             <LogoutIcon sx={{fontSize: "25px", cursor: "pointer"}} onClick = {() => {dispatch(setLogout());
             }} />

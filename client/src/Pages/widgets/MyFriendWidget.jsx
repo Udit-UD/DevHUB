@@ -6,7 +6,7 @@ import { setFriends } from '../../state';
 import { Friend } from '../../Components/Friend';
 
 
-export const MyFriendWidget = ({ userId }) => {
+export const MyFriendWidget = ({ userId, showIcons=true }) => {
   const dispatch = useDispatch();
   const { palette } = useTheme();
   const token  = useSelector((state) => state.token);
@@ -77,13 +77,14 @@ export const MyFriendWidget = ({ userId }) => {
             (
             <Box display="flex" flexDirection="column" gap="1.5rem">
                 {
-                friends.map((friend) => (
+                friends.map((friend, index) => (
                     <Friend  
-                        key={friend._id}
+                        key={friend._id || index}
                         friendId={friend._id} 
                         name={`${friend.firstName} ${friend.lastName}`}
                         subtitle={friend.occupation} 
                         userPicturePath={friend.picturePath}
+                        showIcons={showIcons}
                     />
                 ))
                 }
