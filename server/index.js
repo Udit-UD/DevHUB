@@ -12,6 +12,7 @@ import { register } from "./Controllers/auth.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
+import chatRoutes from "./routes/chat.js";
 import { verifyToken } from "./middleware/auth.js";
 import { createPost } from "./Controllers/posts.js";
 /* Configurations */
@@ -50,6 +51,7 @@ app.post("/posts", verifyToken, upload.single("picture"), createPost);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
+app.use("/chat", chatRoutes);
 
 
 // MONGOOSE SETUP

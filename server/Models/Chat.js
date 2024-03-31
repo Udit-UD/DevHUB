@@ -9,10 +9,10 @@ const chat = mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    users: {
+    users: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-    },
+    }],
     latestMessage: {
         type: String,
         ref: "Message",
@@ -24,4 +24,4 @@ const chat = mongoose.Schema({
 }, {timestamps: true});
 
 const Chat = mongoose.model("Chat", chat);
-module.exports = Chat;
+export default Chat;
