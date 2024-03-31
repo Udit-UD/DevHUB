@@ -20,7 +20,7 @@ export const AuthNav = () => {
             fontWeight="bold" 
             fontSize="clamp(1rem, 2rem, 1.25rem)"
             color="primary"
-            onClick = {()=>navigate("/home")}
+            onClick = {()=>navigate("/")}
             sx={{
               "&:hover": {
                 color: primaryLight,

@@ -76,7 +76,9 @@ export default function ProfileWidget({userId, picturePath}) {
               >
                 {firstName} {lastName}
               </Typography>
+              {friends &&
               <Typography color={medium}>{friends.length} Friends</Typography>
+              }
             </Box>
         </FlexBetween>
         <ManageAccountsOutlined />

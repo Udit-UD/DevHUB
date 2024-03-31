@@ -55,7 +55,7 @@ export const ProfilePage = () => {
           flexBasis={isNonMobileScreen ? "42%" : undefined}
           mt={isNonMobileScreen ? undefined : "2rem"}
         >
-          <Box m="2rem 0" />  
+          <Box m="2rem 0" mt={"0rem"} />  
           <PostsWidget userId={userId} isProfile />
         </Box>
       </Box>

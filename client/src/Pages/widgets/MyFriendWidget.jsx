@@ -71,7 +71,7 @@ export const MyFriendWidget = ({ userId, showIcons=true }) => {
                     fontWeight="400"
                     mb="1.5rem"
                 >
-                    You don't have any friends now {":("}
+                    Sed: You have no friend! {":("}
                 </Typography>
             ) : 
             (

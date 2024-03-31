@@ -16,7 +16,7 @@ const registerSchema = yup.object().shape({
     password: yup.string().required("requried"),
     occupation: yup.string().required("required"),
     location: yup.string().required("required"),
-    picture: yup.string().required("required"),
+    picture: yup.string().required(""),
 });
 
 const loginSchema = yup.object().shape({
@@ -54,55 +54,69 @@ export const Form = () => {
   const neutralLight = theme.palette.neutral.light;
 
   const handleRegister = async(values, onSubmitProps) => {
-    setIsLoading(true);
-    const formData = new FormData();
-    for (let value in values){
-        formData.append(value, values[value]);
+    try{
+        setIsLoading(true);
+        const formData = new FormData();
+        for (let value in values){
+            formData.append(value, values[value]);
+        }
+        formData.append("picturePath", values.picture.name);
+    
+        const registerResponse = await fetch("http://localhost:3000/auth/register", {
+            method:"POST",
+            body: formData
+    
+        })
+    
+        const registerUser = await registerResponse.json();
+        onSubmitProps.resetForm();
+    
+        if(registerUser){
+            setPageType("login");
+        }
     }
-    formData.append("picturePath", values.picture.name);
-
-    const registerResponse = await fetch("http://localhost:3000/auth/register", {
-        method:"POST",
-        body: formData
-
-    })
-
-    const registerUser = await registerResponse.json();
-    onSubmitProps.resetForm();
-
-    if(registerUser){
-        setPageType("login");
+    catch(e){
+        console.log(e.message);
     }
-    setIsLoading(false);
+    finally{
+        setIsLoading(false);
+    }
   }
   
 
   const handleLogin = async(values, onSubmitProps) => {
-    setIsLoading(true);
-    setError("");
-    const loggedInResponse = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values)
-    });
-
-    if (loggedInResponse.status === 401) {
-        const errorData = await loggedInResponse.json();
-        setError(errorData.msg); 
-        return;
+    try{
+        setIsLoading(true);
+        setError("");
+        const loggedInResponse = await fetch("http://localhost:3000/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values)
+        });
+    
+        if (loggedInResponse.status === 401) {
+            const errorData = await loggedInResponse.json();
+            setError(errorData.msg); 
+            return;
+        }
+        const loggedIn = await loggedInResponse.json();
+        onSubmitProps.resetForm();
+        if(loggedIn){
+            dispatch(
+                setLogin({
+                    user: loggedIn.user,
+                    token: loggedIn.token
+                })
+            );
+            navigate("/");
+        }
     }
-    const loggedIn = await loggedInResponse.json();
-    onSubmitProps.resetForm();
-    if(loggedIn){
-        dispatch(
-            setLogin({
-                user: loggedIn.user,
-                token: loggedIn.token
-            })
-        );
-        navigate("/home");
+    catch(e){
+        console.log(e);
     }
-    setIsLoading(false);
+    finally{
+        setIsLoading(false);
+    }
   }
 
   const handleSubmit = async(values, onSubmitProps) => {

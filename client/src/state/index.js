@@ -38,7 +38,7 @@ export const authSlice = createSlice({
                 else
                     state.selectedFriend = null;
             }
-        },
+        },  
         setPosts: (state, action) => {
             state.posts = action.payload.posts.reverse();
         },

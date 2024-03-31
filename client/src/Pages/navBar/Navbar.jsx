@@ -18,7 +18,7 @@ import {
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux'; 
 import { setMode, setLogout } from '../../state';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import FlexBetween from '../../Components/FlexBetween';
 import { Friend } from '../../Components/Friend';
 
@@ -50,6 +50,7 @@ export const Navbar = () => {
             },
           });
           const data = await response.json();
+          console.log(data);
           setSearchRes(data);
           setIsLoading(false);
         } catch (err) {
@@ -86,7 +87,7 @@ export const Navbar = () => {
             fontWeight="bold" 
             fontSize="clamp(1rem, 2rem, 1.25rem)"
             color="primary"
-            onClick = {()=>navigate("/home")}
+            onClick = {()=>navigate("/")}
             sx={{
               "&:hover": {
                 color: primaryLight,

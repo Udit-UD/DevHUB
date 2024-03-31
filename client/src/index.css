@@ -8,3 +8,24 @@ body,
     width: 100%;
     font-family: "Rubik", sans-serif;
   }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #555555b6;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555555e4;
+  }
+  
+  ::-webkit-scrollbar-button {
+    display: none;
+  }

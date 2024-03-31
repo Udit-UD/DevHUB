@@ -12,7 +12,7 @@ export default function LoginPage() {
   return (
     <Box >
       <AuthNav />
-    <Container sx={{ width: `${isNonMobileScreens ? "40%" : "93%"}`, marginTop: "5vh", padding:"2rem", borderRadius: "10px", backgroundColor: `${alt}`}}>
+    <Container sx={{ width: `${isNonMobileScreens ? "40%" : "93%"}`,   marginTop: "5vh", padding:"2rem", borderRadius: "10px", backgroundColor: `${alt}`}}>
       <Typography 
         fontWeight="bold"
         fontSize="clamp(1.25rem, 1.5rem, 1.75rem)"
